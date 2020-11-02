@@ -21,3 +21,11 @@ class ApiConnection():
         tweet = self.get_tweets([tweet_id])[0]
 
         return tweet
+
+    def search_recent(self, query=''):
+        headers = { 'Authorization': f'Bearer {self.bearer}' }
+        payload = { 'query': query }
+        request = requests.get(f'{self.URL}/tweets/search/recent', headers=headers, params=payload)
+        response = json.loads(request.text)
+
+        return response['data']
